@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Keranjang Belanja</title>
+  
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="style_home.css">
+    
+    <!-- Google Fonts for Roboto -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+ 
+<header>
+    <nav class="navbar">
+        <a href="index.html">Beranda</a>
+        <a href="produk.html">Produk</a>
+        <a href="#">Keranjang</a>
+        <a href="kontak.html">kontak</a>
+    </nav>
+</header>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #fff;
+      padding: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .cart-item {
+      background-color: #908065ec;
+      border: 1px solid #fff;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 15px;
+    }
+
+    .cart-item p {
+      margin: 5px 0;
+    }
+
+    .cart-buttons {
+      margin-top: 10px;
+    }
+
+    .cart-buttons button {
+      padding: 5px 10px;
+      margin-right: 5px;
+      border: 1px solid #aaa;
+      background-color: #e0e0e0;
+      cursor: pointer;
+    }
+
+    #total {
+      font-weight: bold;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    #checkout {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    #checkout button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      background-color: #908065ec;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #checkout button:hover {
+      background-color: #908065ec;
+    }
+
+    #thankyou {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Pesanan Saya</h2>
+  <div id="cart-container"></div>
+  <div id="total">Total: Rp 0</div>
+
+  <div id="checkout">
+    <button onclick="checkout()">Beli Sekarang</button>
+  </div>
+
+  <div id="thankyou"></div>
+
+  <script>
+    function loadCart() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const container = document.getElementById('cart-container');
+      const totalElem = document.getElementById('total');
+      const thankyou = document.getElementById('thankyou');
+
+      container.innerHTML = '';
+      let total = 0;
+
+      cart.forEach((item, index) => {
+        const subtotal = item.price * item.quantity;
+        total += subtotal;
+
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'cart-item';
+        itemDiv.innerHTML = `
+          <p><strong>${item.name}</strong></p>
+          <p>Harga: Rp ${item.price}</p>
+          <p>Jumlah: ${item.quantity}</p>
+          <p>Subtotal: Rp ${subtotal}</p>
+          <div class="cart-buttons">
+            <button onclick="changeQuantity(${index}, 1)">+</button>
+            <button onclick="changeQuantity(${index}, -1)">−</button>
+            <button onclick="removeItem(${index})">Hapus</button>
+          </div>
+        `;
+        container.appendChild(itemDiv);
+      });
+
+      totalElem.textContent = `Total: Rp ${total}`;
+    }
+
+    function changeQuantity(index, change) {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart[index].quantity += change;
+
+      if (cart[index].quantity <= 0) {
+        cart.splice(index, 1);
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+      loadCart();
+    }
+
+    function removeItem(index) {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart.splice(index, 1);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      loadCart();
+    }
+
+    function checkout() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      if (cart.length === 0) {
+        alert("Keranjang kosong. Tambahkan produk terlebih dahulu.");
+        return;
+      }
+
+      // Kosongkan keranjang
+      localStorage.removeItem('cart');
+
+      // Hapus tampilan item dan total
+      document.getElementById('cart-container').innerHTML = '';
+      document.getElementById('total').textContent = '';
+      
+      // Tampilkan ucapan terima kasih
+      document.getElementById('thankyou').textContent = 'Terima kasih telah membeli produk kami!';
+    }
+
+    window.onload = loadCart;
+  </script>
+
+</body>
+</html>

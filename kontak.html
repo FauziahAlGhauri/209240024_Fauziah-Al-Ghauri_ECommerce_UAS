@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZHIFAU BOOK STORE</title>
+    
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="style_kontak.css">
+    
+    <!-- Google Fonts for Roboto -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+
+</head>
+ <header>
+    <nav class="navbar">
+        <a href="index.html">Beranda</a>
+        <a href="produk.html">Produk</a>
+        <a href="keranjang.html">Keranjang</a>
+        <a href="#">kontak</a>
+    </nav>
+</header>
+
+</head>
+<body>
+  <div class="contact-container">
+    <h1>💬 Kontak Kami</h1>
+    <p>Silakan hubungi kami atau isi formulir di bawah ini.</p>
+
+    <div class="contact-info">
+      <div class="contact-item">
+        <h3>📧 Email</h3>
+        <p>fauziahalghauri@gmail.com</p>
+      </div>
+      <div class="contact-item">
+        <h3>📞 Nomor HP / WhatsApp</h3>
+        <p>+62 8973 3850 172</p>
+      </div>
+      <div class="contact-item">
+        <h3>📍 Alamat</h3>
+        <p>Jl. Kampung Bojong Malati</p>
+      </div>
+    </div>
+
+    <form id="contact-form">
+      <h2>📝 Kirim Pesan</h2>
+      <input type="text" placeholder="Nama Anda" required />
+      <input type="email" placeholder="Email Anda" required />
+      <textarea placeholder="Tulis pesan Anda..." rows="5" required></textarea>
+      <button type="submit">Kirim</button>
+      <p id="confirmation" class="hidden">✅ Terima kasih! Pesan Anda telah terkirim.</p>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('contact-form');
+    const confirmation = document.getElementById('confirmation');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      confirmation.classList.remove('hidden');
+      form.reset();
+    });
+  </script>
+</body>
+</html>

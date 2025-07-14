@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Produk</title>
+    
+    <!-- External CSS link for styling -->
+    <link rel="stylesheet" href="style_detailproduk.css">
+    
+    <!-- Google Fonts link for Roboto font -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <header>
+        <nav class="navbar">
+            <a href="index.html">Beranda</a>
+            <a href="#">Produk</a>
+            <a href="#">Keranjang</a>
+            <a href="#">Kontak</a>
+        </nav>
+    </header>
+
+    <!-- Product Details Section -->
+    <div class="product-container">
+        <div class="product-image">
+            <img src="Buku/Alfatih.jpg" alt="Product Image">
+        </div>
+        <div class="product-details">
+            <h1>Sejarah Kepemimpinan Alfatih</h1>
+            <p class="price">Rp150.000</p>
+            <p class="description">
+                Sejarah Kepeminpinan Al Fatih Buku ini mengisahkan perjalanan hidup Sultan Muhammad II atau yang lebih dikenal sebagai Muhammad Al-Fatih, seorang pemimpin muda Dinasti Utsmaniyah yang berhasil menaklukkan Konstantinopel pada tahun 1453 M di usia yang sangat muda, 21 tahun.
+            </p>
+        <button onclick="addToCart()">Tambah ke Keranjang</button>
+<a href="keranjang.html">Lihat Keranjang</a>
+
+<script>
+function addToCart() {
+    const name = "Islam Is Me";
+    const price = 12000;
+
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    const index = cart.findIndex(item => item.name === name);
+    if (index !== -1) {
+        cart[index].quantity += 1;
+    } else {
+        cart.push({ name, price, quantity: 1 });
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    alert('Produk ditambahkan ke keranjang!');
+}
+</script>
+
+</html>
